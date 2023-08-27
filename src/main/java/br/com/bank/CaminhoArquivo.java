@@ -7,10 +7,9 @@ import java.nio.file.Paths;
 
 public class CaminhoArquivo {
 
-
     private Path diretorio;
-
     private Path arquivo;
+    private static final String RAIZ = "/tmp/";
 
     private CaminhoArquivo(Path diretorio, Path arquivo) {
         super();
@@ -27,22 +26,20 @@ public class CaminhoArquivo {
     }
 
     public static CaminhoArquivo getInstance(Integer id) {
-        String b = "/tmp/";
-        String d = null;
-        if (id <= 1000) {
-            d = b + id;
-        } else {
-            int i = id;
-            boolean f = true;
-            while (f) {
-                if (id <= (i * 1000)) {
-                    d = b + i;
-                    f = false;
-                }
-                i++;
-            }
+        String diretorio = null;
+        String arquivo = null;
+        int subdiretorio = 1;
+
+        if (id > 1000) {
+            subdiretorio = subdiretorio + 1;
         }
-        return new CaminhoArquivo(Paths.get(d), Paths.get(d));
+        if (id > 2000) {
+            subdiretorio = subdiretorio + 1;
+        }
+        diretorio = RAIZ + subdiretorio;
+        arquivo = diretorio + "/" + id;
+
+        return new CaminhoArquivo(Paths.get(diretorio), Paths.get(arquivo));
 
     }
 

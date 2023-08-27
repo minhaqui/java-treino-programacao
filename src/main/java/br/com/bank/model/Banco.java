@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class Banco {
 
     private String nome;
+    private final int CONTA_REND_ALTA = 10000;
 
     public Banco(String nome) {
         this.nome = nome;
@@ -25,13 +26,14 @@ public class Banco {
         for (int i = 0; i < contas.size(); i++) {
             if (contas.get(i).getCpf().equals(cpf)) {
                 c = contas.get(i);
+                break;
             }
         }
         return c;
     }
 
     public List<Conta> listarContasAltaRenda() {
-        return filtrarContas(c -> c.getSaldo() >= 10000);
+        return filtrarContas(c -> c.getSaldo() >= CONTA_REND_ALTA);
     }
 
     private List<Conta> filtrarContas(Predicate<Conta> filtro) {
